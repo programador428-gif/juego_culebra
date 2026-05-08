@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    min-height: 100dvh;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.contenedor-juego {
+    width: 100%;
+    max-width: 420px;
+    background: #111827;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.contenedor-juego h1 {
+    margin-bottom: 8px;
+    font-size: 24px;
+    color: #22c55e;
+}
+
+.descripcion {
+    margin-bottom: 12px;
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+.panel-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tarjeta-info {
+    flex: 1;
+    background: #1f2937;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid #374151;
+}
+
+.tarjeta-info span {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 2px;
+}
+
+.tarjeta-info strong {
+    font-size: 20px;
+    color: #facc15;
+}
+
+canvas {
+    width: 100%;
+    max-width: 400px;
+    background: #020617;
+    border: 4px solid #22c55e;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto 15px auto;
+}
+
+.controles {
+    display: grid;
+    grid-template-columns: repeat(3, 45px);
+    grid-template-rows: repeat(3, 45px);
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.controles button {
+    border: none;
+    border-radius: 8px;
+    background: #334155;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.controles #arriba {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+.controles #pausa {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.controles #derecha {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}
+
+.controles #izquierda {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.controles #abajo {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.acciones button {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    background: #22c55e;
+    color: #052e16;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.controles button:active,
+.acciones button:active {
+    transform: scale(0.90);
+}
+
+.acciones .secundario {
+    background: #38bdf8;
+    color: #082f49;
+}
+
+.mensaje {
+    margin-top: 10px;
+    color: #e2e8f0;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+.animacion-suave {
+    display: inline-block;
+    animation: latido 1s ease-in-out infinite;
+}
+
+@keyframes latido {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 400px) {
+    .contenedor-juego {
+        padding: 12px;
+    }
+
+    canvas {
+        max-width: 260px;
+    }
+}
