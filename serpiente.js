@@ -6,7 +6,7 @@ function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function dibujarTablero() {
+async function dibujarTablero() {
   ctx.strokeStyle = "#d84ff3";
   ctx.lineWidth = 1;
 
@@ -15,6 +15,7 @@ function dibujarTablero() {
     ctx.moveTo(x, 0);
     ctx.lineTo(x, canvas.height);
     ctx.stroke();
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
 
   for (let y = 0; y <= canvas.height; y += TAMANIO_CELDA) {
@@ -22,6 +23,7 @@ function dibujarTablero() {
     ctx.moveTo(0, y);
     ctx.lineTo(canvas.width, y);
     ctx.stroke();
+    await new Promise(resolve => setTimeout(resolve, 500));
   }
 }
 
