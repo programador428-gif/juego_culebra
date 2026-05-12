@@ -1,10 +1,14 @@
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
 const TAMANIO_CELDA = 30;
+const centroX = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
+const centroY = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
+
 const SERPIENTE = [
-  { x: 8, y: 10 },
-  { x: 8, y: 11 },
-  { x: 8, y: 12 }
+  { x: centroX - 1, y: centroY - 1 },
+  { x: centroX, y: centroY - 1 },
+  { x: centroX + 1, y: centroY - 1 },
+  { x: centroX + 1, y: centroY }
 ];
 
 function limpiarCanvas() {
