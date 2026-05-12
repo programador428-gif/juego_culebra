@@ -40,21 +40,23 @@ function dibujarTodo() {
   pintarSerpiente();
 }
 
-function pintarParte(lineaX, lineaY) {
+function pintarParte(lineaX, lineaY, color) {
   let posX = lineaX * TAMANIO_CELDA;
   let posY = lineaY * TAMANIO_CELDA;
 
-  ctx.fillStyle = "green";
+  ctx.fillStyle = color;
   ctx.fillRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 
-  ctx.strokeStyle = "#ea00ff";
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 2;
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
 function pintarSerpiente() {
-  SERPIENTE.forEach((SERPIENTE) => {
-    pintarParte(SERPIENTE.x, SERPIENTE.y);
+  let distancia = SERPIENTE.length - 1;
+  SERPIENTE.forEach((SERPIENTE, index) => {
+    let color = index == distancia ? "yellow" : "green";
+    pintarParte(SERPIENTE.x, SERPIENTE.y, color);
   });
 }
 
