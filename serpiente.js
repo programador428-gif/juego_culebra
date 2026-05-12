@@ -1,6 +1,11 @@
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
 const TAMANIO_CELDA = 30;
+const SERPIENTE = [
+  { x: 8, y: 10 },
+  { x: 8, y: 11 },
+  { x: 8, y: 12 }
+];
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -28,18 +33,7 @@ function dibujarTablero() {
 function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
-  // Prueba 1
-  pintarParte(5, 5);
-  // Prueba 2
-  pintarParte(10, 2);
-  // Prueba 3 -> Pintar un cuadrado pegado al borde inferior del canvas.
-  pintarParte((canvas.width - TAMANIO_CELDA) / TAMANIO_CELDA, (canvas.height - TAMANIO_CELDA) / TAMANIO_CELDA);
-  // Prueba 4 -> Pintar un cuadrado pegado al borde derecho del canvas.
-  pintarParte((canvas.width - TAMANIO_CELDA) / TAMANIO_CELDA, 10);
-  // Prueba 5 -> Pintar un cuadrado pegado al borde izquierdo del canvas.
-  pintarParte(0, 10);
-  // Prueba 6 -> Pintar un cuadrado en cualquier esquina del canvas.
-  pintarParte(0, (canvas.height - TAMANIO_CELDA) / TAMANIO_CELDA);
+  pintarSerpiente();
 }
 
 function pintarParte(lineaX, lineaY) {
@@ -52,6 +46,12 @@ function pintarParte(lineaX, lineaY) {
   ctx.strokeStyle = "#ea00ff";
   ctx.lineWidth = 1;
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
+}
+
+function pintarSerpiente() {
+  SERPIENTE.forEach((SERPIENTE) => {
+    pintarParte(SERPIENTE.x, SERPIENTE.y);
+  });
 }
 
 dibujarTodo();
