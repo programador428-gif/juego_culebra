@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
-const TAMANIO_CELDA = 25;
+const TAMANIO_CELDA = 50;
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -8,7 +8,7 @@ function limpiarCanvas() {
 
 function dibujarTablero() {
   ctx.strokeStyle = "#d84ff3";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 0.1;
 
   for (let x = 0; x <= canvas.width; x += TAMANIO_CELDA) {
     ctx.beginPath();
@@ -28,6 +28,15 @@ function dibujarTablero() {
 function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
+  pintarParte(6, 5);
+}
+
+function pintarParte(lineaX, lineaY) {
+  let posX = lineaX * TAMANIO_CELDA;
+  let posY = lineaY * TAMANIO_CELDA;
+
+  ctx.fillStyle = "green";
+  ctx.fillRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
 dibujarTodo();
