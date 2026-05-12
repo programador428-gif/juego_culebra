@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
-const TAMANIO_CELDA = 50;
+const TAMANIO_CELDA = 100;
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -28,7 +28,8 @@ function dibujarTablero() {
 function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
-  pintarParte(6, 5);
+  pintarParte(5, 1);
+  pintarParte(0, 3);
 }
 
 function pintarParte(lineaX, lineaY) {
