@@ -11,6 +11,10 @@ const SERPIENTE = [
   { x: centroX + 1, y: centroY }
 ];
 
+let direccionActual = "derecha";
+let pausado = false;
+let intervalo;
+
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -52,61 +56,65 @@ function pintarParte(lineaX, lineaY, color) {
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
-// Serpiente
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
-  SERPIENTE.forEach((SERPIENTE, index) => {
+  SERPIENTE.forEach((parte, index) => {
     let color = index === distancia ? "yellow" : "green";
-    pintarParte(SERPIENTE.x, SERPIENTE.y, color);
+    pintarParte(parte.x, parte.y, color);
   });
 }
 
 function moverDerecha() {
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = {
-    x: cabezaActual.x + 1,
-    y: cabezaActual.y
-  };
+  let nuevaCabeza = { x: cabezaActual.x + 1, y: cabezaActual.y };
   SERPIENTE.push(nuevaCabeza);
   SERPIENTE.shift();
 }
 
 function moverIzquierda() {
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = {
-    x: cabezaActual.x - 1,
-    y: cabezaActual.y
-  };
+  let nuevaCabeza = { x: cabezaActual.x - 1, y: cabezaActual.y };
   SERPIENTE.push(nuevaCabeza);
   SERPIENTE.shift();
 }
 
 function moverArriba() {
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = {
-    x: cabezaActual.x,
-    y: cabezaActual.y - 1
-  };
+  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y - 1 };
   SERPIENTE.push(nuevaCabeza);
   SERPIENTE.shift();
 }
 
 function moverAbajo() {
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = {
-    x: cabezaActual.x,
-    y: cabezaActual.y + 1
-  };
+  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y + 1 };
   SERPIENTE.push(nuevaCabeza);
   SERPIENTE.shift();
 }
 
-function cambiarDireccion(direccion) {
-  if (direccion === "derecha") moverDerecha();
-  if (direccion === "izquierda") moverIzquierda();
-  if (direccion === "arriba") moverArriba();
-  if (direccion === "abajo") moverAbajo();
-  dibujarTodo();
+function cambiarDireccion(nueva) {
+  direccionActual = nueva;
+}
+
+function cicloJuego() {
+  if (!pausado) {
+    if (direccionActual === "derecha") moverDerecha();
+    if (direccionActual === "izquierda") moverIzquierda();
+    if (direccionActual === "arriba") moverArriba();
+    if (direccionActual === "abajo") moverAbajo();
+    dibujarTodo();
+  }
+}
+
+function iniciarJuego() {
+  if (!intervalo) {
+    intervalo = setInterval(cicloJuego, 150);
+  }
+  pausado = false;
+}
+
+function pausarJuego() {
+  pausado = !pausado;
 }
 
 dibujarTodo();
@@ -115,3 +123,5 @@ document.getElementById("derecha").onclick = () => cambiarDireccion("derecha");
 document.getElementById("izquierda").onclick = () => cambiarDireccion("izquierda");
 document.getElementById("arriba").onclick = () => cambiarDireccion("arriba");
 document.getElementById("abajo").onclick = () => cambiarDireccion("abajo");
+document.getElementById("btnIniciar").onclick = () => iniciarJuego();
+document.getElementById("btnPausa").onclick = () => pausarJuego();
