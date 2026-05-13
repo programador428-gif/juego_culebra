@@ -1,6 +1,8 @@
+// --- CONFIGURACIÓN Y VARIABLES GLOBALES ---
 const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
 const TAMANIO_CELDA = 30;
+
 const centroX = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
 const centroY = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
 
@@ -17,6 +19,7 @@ let intervalo;
 let comida = { x: 5, y: 5 };
 let puntaje = 0;
 
+// --- FUNCIONES DE DIBUJO ---
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -40,13 +43,6 @@ function dibujarTablero() {
   }
 }
 
-function dibujarTodo() {
-  limpiarCanvas();
-  dibujarTablero();
-  pintarSerpiente();
-  pintarComida();
-}
-
 function pintarParte(lineaX, lineaY, color) {
   let posX = lineaX * TAMANIO_CELDA;
   let posY = lineaY * TAMANIO_CELDA;
@@ -59,23 +55,14 @@ function pintarParte(lineaX, lineaY, color) {
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
-function generarComida() {
-  const columnas = canvas.width / TAMANIO_CELDA;
-  const filas = canvas.height / TAMANIO_CELDA;
-
-  comida.x = Math.floor(Math.random() * columnas);
-  comida.y = Math.floor(Math.random() * filas);
+function dibujarTodo() {
+  limpiarCanvas();
+  dibujarTablero();
+  pintarSerpiente();
+  pintarComida();
 }
 
-function pintarComida() {
-  pintarParte(comida.x, comida.y, "red");
-}
-
-function atrapaComida() {
-  let cabeza = SERPIENTE[SERPIENTE.length - 1];
-  return cabeza.x === comida.x && cabeza.y === comida.y;
-}
-
+// --- LÓGICA DE LA SERPIENTE ---
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((parte, index) => {
@@ -113,6 +100,25 @@ function cambiarDireccion(nueva) {
   direccionActual = nueva;
 }
 
+// --- LÓGICA DE LA COMIDA ---
+function generarComida() {
+  const columnas = canvas.width / TAMANIO_CELDA;
+  const filas = canvas.height / TAMANIO_CELDA;
+
+  comida.x = Math.floor(Math.random() * columnas);
+  comida.y = Math.floor(Math.random() * filas);
+}
+
+function pintarComida() {
+  pintarParte(comida.x, comida.y, "red");
+}
+
+function atrapaComida() {
+  let cabeza = SERPIENTE[SERPIENTE.length - 1];
+  return cabeza.x === comida.x && cabeza.y === comida.y;
+}
+
+// --- CONTROL DEL JUEGO ---
 function cicloJuego() {
   if (!pausado) {
     moverSerpiente();
@@ -133,6 +139,7 @@ function pausarJuego() {
   document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
 }
 
+// --- EVENTOS E INTERACCIÓN ---
 dibujarTodo();
 
 document.getElementById("btnIniciar").onclick = () => iniciarJuego();
