@@ -70,6 +70,16 @@ function pintarComida() {
   pintarParte(comida.x, comida.y, "red");
 }
 
+function atrapaComida() {
+  let cabeza = SERPIENTE[SERPIENTE.length - 1];
+
+  if (cabeza.x === comida.x && cabeza.y === comida.y) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((parte, index) => {
@@ -121,6 +131,8 @@ function cicloJuego() {
     if (direccionActual === "izquierda") moverIzquierda();
     if (direccionActual === "arriba") moverArriba();
     if (direccionActual === "abajo") moverAbajo();
+    if (atrapaComida()) generarComida();
+
     dibujarTodo();
   }
 }
