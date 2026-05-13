@@ -93,6 +93,11 @@ function moverAbajo() {
 }
 
 function cambiarDireccion(nueva) {
+  if (direccionActual === "derecha" && nueva === "izquierda") return;
+  if (direccionActual === "izquierda" && nueva === "derecha") return;
+  if (direccionActual === "arriba" && nueva === "abajo") return;
+  if (direccionActual === "abajo" && nueva === "arriba") return;
+
   direccionActual = nueva;
 }
 
