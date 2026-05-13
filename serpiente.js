@@ -52,6 +52,7 @@ function pintarParte(lineaX, lineaY, color) {
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
 }
 
+// Serpiente
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((SERPIENTE, index) => {
@@ -60,4 +61,20 @@ function pintarSerpiente() {
   });
 }
 
+function moverDerecha() {
+  let distancia = SERPIENTE.length - 1;
+  let cabezaActual = SERPIENTE[distancia];
+  let nuevaCabeza = {
+    x: cabezaActual.x + 1,
+    y: cabezaActual.y
+  }
+
+  SERPIENTE.push(nuevaCabeza);
+
+  SERPIENTE.shift();
+  dibujarTodo();
+}
+
 dibujarTodo();
+
+document.getElementById("derecha").addEventListener('click', moverDerecha);
