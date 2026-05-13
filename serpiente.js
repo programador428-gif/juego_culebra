@@ -124,4 +124,26 @@ document.getElementById("izquierda").onclick = () => cambiarDireccion("izquierda
 document.getElementById("arriba").onclick = () => cambiarDireccion("arriba");
 document.getElementById("abajo").onclick = () => cambiarDireccion("abajo");
 document.getElementById("btnIniciar").onclick = () => iniciarJuego();
-document.getElementById("btnPausa").onclick = () => pausarJuego();
+document.getElementById("pausa").onclick = () => pausarJuego();
+
+window.addEventListener("keydown", (event) => {
+  const tecla = event.key;
+
+  if (tecla === "w" || tecla === "W" || tecla === "ArrowUp") {
+    cambiarDireccion("arriba");
+  }
+  if (tecla === "s" || tecla === "S" || tecla === "ArrowDown") {
+    cambiarDireccion("abajo");
+  }
+  if (tecla === "a" || tecla === "A" || tecla === "ArrowLeft") {
+    cambiarDireccion("izquierda");
+  }
+  if (tecla === "d" || tecla === "D" || tecla === "ArrowRight") {
+    cambiarDireccion("derecha");
+  }
+
+  if (event.code === "Space") {
+    event.preventDefault();
+    pausarJuego();
+  }
+});
