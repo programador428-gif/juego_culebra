@@ -72,9 +72,13 @@ function moverDerecha() {
   SERPIENTE.push(nuevaCabeza);
 
   SERPIENTE.shift();
+}
+
+function cambiarDireccion(direccion) {
+  if (direccion === "derecha") moverDerecha();
   dibujarTodo();
 }
 
 dibujarTodo();
 
-document.getElementById("derecha").addEventListener('click', moverDerecha);
+document.getElementById("derecha").addEventListener('click', moverDerecha("derecha"));
