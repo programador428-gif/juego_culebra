@@ -5,9 +5,9 @@ const centroX = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
 const centroY = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
 
 const SERPIENTE = [
-  { x: centroX - 1, y: centroY - 1 },
-  { x: centroX, y: centroY - 1 },
-  { x: centroX + 1, y: centroY - 1 },
+  { x: centroX - 2, y: centroY },
+  { x: centroX - 1, y: centroY },
+  { x: centroX, y: centroY },
   { x: centroX + 1, y: centroY }
 ];
 
@@ -56,29 +56,62 @@ function pintarParte(lineaX, lineaY, color) {
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((SERPIENTE, index) => {
-    let color = index == distancia ? "yellow" : "green";
+    let color = index === distancia ? "yellow" : "green";
     pintarParte(SERPIENTE.x, SERPIENTE.y, color);
   });
 }
 
 function moverDerecha() {
-  let distancia = SERPIENTE.length - 1;
-  let cabezaActual = SERPIENTE[distancia];
+  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
   let nuevaCabeza = {
     x: cabezaActual.x + 1,
     y: cabezaActual.y
-  }
-
+  };
   SERPIENTE.push(nuevaCabeza);
+  SERPIENTE.shift();
+}
 
+function moverIzquierda() {
+  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
+  let nuevaCabeza = {
+    x: cabezaActual.x - 1,
+    y: cabezaActual.y
+  };
+  SERPIENTE.push(nuevaCabeza);
+  SERPIENTE.shift();
+}
+
+function moverArriba() {
+  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
+  let nuevaCabeza = {
+    x: cabezaActual.x,
+    y: cabezaActual.y - 1
+  };
+  SERPIENTE.push(nuevaCabeza);
+  SERPIENTE.shift();
+}
+
+function moverAbajo() {
+  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
+  let nuevaCabeza = {
+    x: cabezaActual.x,
+    y: cabezaActual.y + 1
+  };
+  SERPIENTE.push(nuevaCabeza);
   SERPIENTE.shift();
 }
 
 function cambiarDireccion(direccion) {
   if (direccion === "derecha") moverDerecha();
+  if (direccion === "izquierda") moverIzquierda();
+  if (direccion === "arriba") moverArriba();
+  if (direccion === "abajo") moverAbajo();
   dibujarTodo();
 }
 
 dibujarTodo();
 
-document.getElementById("derecha").addEventListener('click', moverDerecha("derecha"));
+document.getElementById("derecha").onclick = () => cambiarDireccion("derecha");
+document.getElementById("izquierda").onclick = () => cambiarDireccion("izquierda");
+document.getElementById("arriba").onclick = () => cambiarDireccion("arriba");
+document.getElementById("abajo").onclick = () => cambiarDireccion("abajo");
