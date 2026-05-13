@@ -15,6 +15,7 @@ let direccionActual = "derecha";
 let pausado = false;
 let intervalo;
 let comida = { x: 5, y: 5 };
+let puntaje = 0;
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -72,12 +73,7 @@ function pintarComida() {
 
 function atrapaComida() {
   let cabeza = SERPIENTE[SERPIENTE.length - 1];
-
-  if (cabeza.x === comida.x && cabeza.y === comida.y) {
-    return true;
-  } else {
-    return false;
-  }
+  return cabeza.x === comida.x && cabeza.y === comida.y;
 }
 
 function pintarSerpiente() {
@@ -88,32 +84,24 @@ function pintarSerpiente() {
   });
 }
 
-function moverDerecha() {
+function moverSerpiente() {
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = { x: cabezaActual.x + 1, y: cabezaActual.y };
-  SERPIENTE.push(nuevaCabeza);
-  SERPIENTE.shift();
-}
+  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y };
 
-function moverIzquierda() {
-  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = { x: cabezaActual.x - 1, y: cabezaActual.y };
-  SERPIENTE.push(nuevaCabeza);
-  SERPIENTE.shift();
-}
+  if (direccionActual === "derecha") nuevaCabeza.x++;
+  if (direccionActual === "izquierda") nuevaCabeza.x--;
+  if (direccionActual === "arriba") nuevaCabeza.y--;
+  if (direccionActual === "abajo") nuevaCabeza.y++;
 
-function moverArriba() {
-  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y - 1 };
   SERPIENTE.push(nuevaCabeza);
-  SERPIENTE.shift();
-}
 
-function moverAbajo() {
-  let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
-  let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y + 1 };
-  SERPIENTE.push(nuevaCabeza);
-  SERPIENTE.shift();
+  if (atrapaComida()) {
+    puntaje++;
+    document.getElementById("puntaje").innerText = puntaje;
+    generarComida();
+  } else {
+    SERPIENTE.shift();
+  }
 }
 
 function cambiarDireccion(nueva) {
@@ -127,12 +115,7 @@ function cambiarDireccion(nueva) {
 
 function cicloJuego() {
   if (!pausado) {
-    if (direccionActual === "derecha") moverDerecha();
-    if (direccionActual === "izquierda") moverIzquierda();
-    if (direccionActual === "arriba") moverArriba();
-    if (direccionActual === "abajo") moverAbajo();
-    if (atrapaComida()) generarComida();
-
+    moverSerpiente();
     dibujarTodo();
   }
 }
@@ -142,36 +125,26 @@ function iniciarJuego() {
     intervalo = setInterval(cicloJuego, 150);
   }
   pausado = false;
+  document.getElementById("estado").innerText = "Jugando";
 }
 
 function pausarJuego() {
   pausado = !pausado;
+  document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
 }
 
 dibujarTodo();
 
-document.getElementById("derecha").onclick = () => cambiarDireccion("derecha");
-document.getElementById("izquierda").onclick = () => cambiarDireccion("izquierda");
-document.getElementById("arriba").onclick = () => cambiarDireccion("arriba");
-document.getElementById("abajo").onclick = () => cambiarDireccion("abajo");
 document.getElementById("btnIniciar").onclick = () => iniciarJuego();
 document.getElementById("pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
   const tecla = event.key;
 
-  if (tecla === "w" || tecla === "W" || tecla === "ArrowUp") {
-    cambiarDireccion("arriba");
-  }
-  if (tecla === "s" || tecla === "S" || tecla === "ArrowDown") {
-    cambiarDireccion("abajo");
-  }
-  if (tecla === "a" || tecla === "A" || tecla === "ArrowLeft") {
-    cambiarDireccion("izquierda");
-  }
-  if (tecla === "d" || tecla === "D" || tecla === "ArrowRight") {
-    cambiarDireccion("derecha");
-  }
+  if (tecla === "w" || tecla === "W" || tecla === "ArrowUp") cambiarDireccion("arriba");
+  if (tecla === "s" || tecla === "S" || tecla === "ArrowDown") cambiarDireccion("abajo");
+  if (tecla === "a" || tecla === "A" || tecla === "ArrowLeft") cambiarDireccion("izquierda");
+  if (tecla === "d" || tecla === "D" || tecla === "ArrowRight") cambiarDireccion("derecha");
 
   if (event.code === "Space") {
     event.preventDefault();
