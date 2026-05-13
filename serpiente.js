@@ -14,6 +14,7 @@ const SERPIENTE = [
 let direccionActual = "derecha";
 let pausado = false;
 let intervalo;
+let comida = { x: 5, y: 5 };
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -42,6 +43,7 @@ function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
   pintarSerpiente();
+  pintarComida();
 }
 
 function pintarParte(lineaX, lineaY, color) {
@@ -54,6 +56,18 @@ function pintarParte(lineaX, lineaY, color) {
   ctx.strokeStyle = "#ffffff";
   ctx.lineWidth = 2;
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
+}
+
+function generarComida() {
+  const columnas = canvas.width / TAMANIO_CELDA;
+  const filas = canvas.height / TAMANIO_CELDA;
+
+  comida.x = Math.floor(Math.random() * columnas);
+  comida.y = Math.floor(Math.random() * filas);
+}
+
+function pintarComida() {
+  pintarParte(comida.x, comida.y, "red");
 }
 
 function pintarSerpiente() {
