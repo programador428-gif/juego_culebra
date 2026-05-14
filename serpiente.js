@@ -15,6 +15,7 @@ let pausado = false;
 let intervalo;
 let comida = { x: 5, y: 5 };
 let puntaje = 0;
+let velocidad = 150;
 
 // --- FUNCIONES DE DIBUJO ---
 function limpiarCanvas() {
@@ -154,7 +155,7 @@ function cicloJuego() {
 
 function iniciarJuego() {
   if (!intervalo) {
-    intervalo = setInterval(cicloJuego, 150);
+    intervalo = setInterval(cicloJuego, velocidad);
   }
   pausado = false;
   document.getElementById("estado").innerText = "Jugando";
