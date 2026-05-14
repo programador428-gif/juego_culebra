@@ -12,6 +12,8 @@ const SERPIENTE = [
 
 let direccionActual = "derecha";
 let pausado = false;
+let mensajeInicial = true;
+let gameOver = false;
 let intervalo;
 let comida = { x: 5, y: 5 };
 let puntaje = 0;
@@ -66,11 +68,26 @@ function mostrarMensajeGrande(texto) {
   ctx.strokeText(texto, canvas.width / 2, canvas.height / 2);
 }
 
+function mostrarMensajeInicial() {
+  if (intervalo) return;
+  if (pausado) return;
+  if (gameOver) return;
+
+  mensajeInicial = !mensajeInicial;
+  document.getElementById("estado").innerText = "Listo";
+
+  if (mensajeInicial) mostrarMensajeGrande("¡Vamos a Jugar!");
+  else {
+    dibujarTodo();
+  }
+}
+
 function dibujarTodo() {
   limpiarCanvas();
   dibujarTablero();
   pintarSerpiente();
   pintarComida();
+  mostrarMensajeInicial();
 }
 
 // --- LÓGICA DE LA SERPIENTE ---
@@ -180,6 +197,7 @@ function reiniciarJuego() {
   puntaje = 0;
   direccionActual = "derecha";
   pausado = false;
+  gameOver = false;
 
   SERPIENTE.length = 0;
   SERPIENTE.push({ x: CENTRO_X, y: CENTRO_Y });
@@ -194,6 +212,7 @@ function reiniciarJuego() {
 }
 
 function finalizarJuego() {
+  gameOver = true;
   clearInterval(intervalo);
   intervalo = null;
 
