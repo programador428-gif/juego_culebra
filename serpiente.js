@@ -3,14 +3,14 @@ const canvas = document.getElementById("canvasJuego");
 const ctx = canvas.getContext("2d");
 const TAMANIO_CELDA = 30;
 
-const centroX = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
-const centroY = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
+const CENTRO_X = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
+const CENTRO_Y = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
 
 const SERPIENTE = [
-  { x: centroX - 2, y: centroY },
-  { x: centroX - 1, y: centroY },
-  { x: centroX, y: centroY },
-  { x: centroX + 1, y: centroY }
+  { x: CENTRO_X - 2, y: CENTRO_Y },
+  { x: CENTRO_X - 1, y: CENTRO_Y },
+  { x: CENTRO_X, y: CENTRO_Y },
+  { x: CENTRO_X + 1, y: CENTRO_Y }
 ];
 
 let direccionActual = "derecha";
@@ -102,11 +102,11 @@ function cambiarDireccion(nueva) {
 
 // --- LÓGICA DE LA COMIDA ---
 function generarComida() {
-  const columnas = canvas.width / TAMANIO_CELDA;
-  const filas = canvas.height / TAMANIO_CELDA;
+  const COLUMNAS = canvas.width / TAMANIO_CELDA;
+  const FILAS = canvas.height / TAMANIO_CELDA;
 
-  comida.x = Math.floor(Math.random() * columnas);
-  comida.y = Math.floor(Math.random() * filas);
+  comida.x = Math.floor(Math.random() * COLUMNAS);
+  comida.y = Math.floor(Math.random() * FILAS);
 }
 
 function pintarComida() {
@@ -146,12 +146,12 @@ document.getElementById("btnIniciar").onclick = () => iniciarJuego();
 document.getElementById("pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
-  const tecla = event.key;
+  const TECLA = event.key;
 
-  if (tecla === "w" || tecla === "W" || tecla === "ArrowUp") cambiarDireccion("arriba");
-  if (tecla === "s" || tecla === "S" || tecla === "ArrowDown") cambiarDireccion("abajo");
-  if (tecla === "a" || tecla === "A" || tecla === "ArrowLeft") cambiarDireccion("izquierda");
-  if (tecla === "d" || tecla === "D" || tecla === "ArrowRight") cambiarDireccion("derecha");
+  if (TECLA === "w" || TECLA === "W" || TECLA === "ArrowUp") cambiarDireccion("arriba");
+  if (TECLA === "s" || TECLA === "S" || TECLA === "ArrowDown") cambiarDireccion("abajo");
+  if (TECLA === "a" || TECLA === "A" || TECLA === "ArrowLeft") cambiarDireccion("izquierda");
+  if (TECLA === "d" || TECLA === "D" || TECLA === "ArrowRight") cambiarDireccion("derecha");
 
   if (event.code === "Space") {
     event.preventDefault();
