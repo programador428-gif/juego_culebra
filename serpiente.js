@@ -130,6 +130,10 @@ function moverSerpiente() {
   } else {
     SERPIENTE.shift();
   }
+
+  if (verificarAutoColision(nuevaCabeza, SERPIENTE.slice(0, -1))) {
+    finalizarJuego();
+  }
 }
 
 function cambiarDireccion(nueva) {
@@ -155,9 +159,15 @@ function pintarComida() {
   pintarParte(comida.x, comida.y, "red");
 }
 
+
+// --- Colisiones ---
 function atrapaComida() {
   let cabeza = SERPIENTE[SERPIENTE.length - 1];
   return cabeza.x === comida.x && cabeza.y === comida.y;
+}
+
+function verificarAutoColision(nuevaCabeza, cuerpoActual) {
+  return cuerpoActual.some((parte) => parte.x === nuevaCabeza.x && parte.y === nuevaCabeza.y);
 }
 
 // --- CONTROL DEL JUEGO ---
