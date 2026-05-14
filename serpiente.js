@@ -169,6 +169,26 @@ function pausarJuego() {
   }
 }
 
+function reiniciarJuego() {
+  clearInterval(intervalo);
+  intervalo = null;
+
+  puntaje = 0;
+  direccionActual = "derecha";
+  pausado = false;
+
+  SERPIENTE.length = 0;
+  SERPIENTE.push({ x: CENTRO_X, y: CENTRO_Y });
+
+  generarComida();
+
+  document.getElementById("puntaje").innerText = puntaje;
+  document.getElementById("estado").innerText = "Listo";
+  document.getElementById("mensaje").innerText = "¡Presiona iniciar para comenzar!";
+
+  dibujarTodo();
+}
+
 function finalizarJuego() {
   clearInterval(intervalo);
   intervalo = null;
@@ -179,6 +199,7 @@ function finalizarJuego() {
 }
 
 // --- EVENTOS E INTERACCIÓN ---
+generarComida();
 dibujarTodo();
 
 document.getElementById("btnIniciar").onclick = () => iniciarJuego();
