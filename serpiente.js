@@ -53,7 +53,7 @@ function pintarParte(lineaX, lineaY, color) {
 }
 
 function mostrarMensajeGrande(texto) {
-  ctx.fillStyle = "#facc15";
+  ctx.fillStyle = "#d3bbff";
   ctx.font = "bold 60px 'Segoe UI'";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -89,6 +89,19 @@ function moverSerpiente() {
   if (direccionActual === "izquierda") nuevaCabeza.x--;
   if (direccionActual === "arriba") nuevaCabeza.y--;
   if (direccionActual === "abajo") nuevaCabeza.y++;
+
+  const limiteDerecho = canvas.width / TAMANIO_CELDA;
+  const limiteInferior = canvas.height / TAMANIO_CELDA;
+
+  if (
+    nuevaCabeza.x < 0 ||
+    nuevaCabeza.x >= limiteDerecho ||
+    nuevaCabeza.y < 0 ||
+    nuevaCabeza.y >= limiteInferior
+  ) {
+    finalizarJuego();
+    return;
+  }
 
   SERPIENTE.push(nuevaCabeza);
 
@@ -132,7 +145,9 @@ function atrapaComida() {
 function cicloJuego() {
   if (!pausado) {
     moverSerpiente();
-    dibujarTodo();
+    if (intervalo) {
+      dibujarTodo();
+    }
   }
 }
 
@@ -152,6 +167,15 @@ function pausarJuego() {
   else {
     dibujarTodo();
   }
+}
+
+function finalizarJuego() {
+  clearInterval(intervalo);
+  intervalo = null;
+
+  document.getElementById("estado").innerText = "Game Over";
+  dibujarTodo();
+  mostrarMensajeGrande("GAME OVER");
 }
 
 // --- EVENTOS E INTERACCIÓN ---
