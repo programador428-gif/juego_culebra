@@ -7,10 +7,7 @@ const CENTRO_X = Math.floor(canvas.width / 2 / TAMANIO_CELDA);
 const CENTRO_Y = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
 
 const SERPIENTE = [
-  { x: CENTRO_X - 2, y: CENTRO_Y },
-  { x: CENTRO_X - 1, y: CENTRO_Y },
   { x: CENTRO_X, y: CENTRO_Y },
-  { x: CENTRO_X + 1, y: CENTRO_Y }
 ];
 
 let direccionActual = "derecha";
@@ -53,6 +50,19 @@ function pintarParte(lineaX, lineaY, color) {
   ctx.strokeStyle = "#ffffff";
   ctx.lineWidth = 2;
   ctx.strokeRect(posX, posY, TAMANIO_CELDA, TAMANIO_CELDA);
+}
+
+function mostrarMensajeGrande(texto) {
+  ctx.fillStyle = "#facc15";
+  ctx.font = "bold 60px 'Segoe UI'";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.fillText(texto, canvas.width / 2, canvas.height / 2);
+
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+  ctx.strokeText(texto, canvas.width / 2, canvas.height / 2);
 }
 
 function dibujarTodo() {
@@ -137,6 +147,11 @@ function iniciarJuego() {
 function pausarJuego() {
   pausado = !pausado;
   document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
+
+  if (pausado) mostrarMensajeGrande("| |");
+  else {
+    dibujarTodo();
+  }
 }
 
 // --- EVENTOS E INTERACCIÓN ---
