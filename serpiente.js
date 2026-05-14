@@ -115,6 +115,7 @@ function moverSerpiente() {
 }
 
 function cambiarDireccion(nueva) {
+  if (!intervalo) return;
   if (direccionActual === "derecha" && nueva === "izquierda") return;
   if (direccionActual === "izquierda" && nueva === "derecha") return;
   if (direccionActual === "arriba" && nueva === "abajo") return;
@@ -160,6 +161,8 @@ function iniciarJuego() {
 }
 
 function pausarJuego() {
+  if (!intervalo) return;
+
   pausado = !pausado;
   document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
 
@@ -206,6 +209,8 @@ document.getElementById("btnIniciar").onclick = () => iniciarJuego();
 document.getElementById("pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
+  if (!intervalo) return;
+
   const TECLA = event.key;
 
   if (TECLA === "w" || TECLA === "W" || TECLA === "ArrowUp") cambiarDireccion("arriba");
