@@ -13,6 +13,7 @@ const SERPIENTE = [
 // Sonidos
 const gameOverSound = new Audio("./assets/audio/game-over.mp3");
 const fondoSound = new Audio("./assets/audio/fondo.mp3");
+const crunchSound = new Audio("./assets/audio/crunching.mp3");
 
 let direccionActual = "derecha";
 let proximaDireccion = "derecha";
@@ -131,6 +132,7 @@ function moverSerpiente() {
   SERPIENTE.push(nuevaCabeza);
 
   if (atrapaComida()) {
+    reproducirCrunchAudio();
     puntaje++;
     document.getElementById("puntaje").innerText = puntaje;
     generarComida();
@@ -188,6 +190,12 @@ function reproducirFondoAudio() {
   fondoSound.play();
 }
 
+function reproducirCrunchAudio() {
+  crunchSound.currentTime = 0;
+  crunchSound.volume = 1;
+  crunchSound.play();
+}
+
 // --- CONTROL DEL JUEGO ---
 function cicloJuego() {
   if (!pausado) {
@@ -205,6 +213,7 @@ function iniciarJuego() {
   }
   pausado = false;
   document.getElementById("estado").innerText = "Jugando";
+  reproducirFondoAudio();
 }
 
 function pausarJuego() {
@@ -236,7 +245,10 @@ function reiniciarJuego() {
   SERPIENTE.push({ x: CENTRO_X, y: CENTRO_Y });
 
   generarComida();
-  reproducirFondoAudio();
+
+  fondoSound.currentTime = 0;
+  crunchSound.currentTime = 0;
+  gameOverSound.currentTime = 0;
 
   document.getElementById("puntaje").innerText = puntaje;
   document.getElementById("estado").innerText = "Listo";
@@ -262,7 +274,6 @@ function finalizarJuego() {
 // --- EVENTOS E INTERACCIÓN ---
 generarComida();
 dibujarTodo();
-reproducirFondoAudio();
 
 document.getElementById("btnIniciar").onclick = () => {
   if (gameOver || intervalo) return;
