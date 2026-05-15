@@ -120,15 +120,65 @@ canvas {
     grid-row: 3/4;
 }
 
+.acciones {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px;
+}
+
+.grupo-principales {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.grupo-niveles {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
 .acciones button {
     border: none;
-    border-radius: 8px;
-    padding: 10px 20px;
-    background: #22c55e;
-    color: #052e16;
-    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 16px;
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+#btnIniciar {
+    background: #facc15;
+    color: #422006;
+}
+
+#btnReiniciar {
+    background: #38bdf8;
+    color: #082f49;
+}
+
+.grupo-niveles button {
+    background: #1f2937;
+    color: #94a3b8;
+    border: 1px solid #374151;
+    font-size: 11px;
+    padding: 8px 12px;
+}
+
+.acciones button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.grupo-niveles button:hover {
+    border-color: #22c55e;
+    color: #22c55e;
 }
 
 .controles button:active,
@@ -136,13 +186,8 @@ canvas {
     transform: scale(0.90);
 }
 
-.acciones .secundario {
-    background: #38bdf8;
-    color: #082f49;
-}
-
 .mensaje {
-    margin-top: 10px;
+    margin-top: 20px 0;
     color: #e2e8f0;
     font-size: 14px;
     min-height: 20px;

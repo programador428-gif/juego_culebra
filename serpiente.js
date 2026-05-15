@@ -279,6 +279,9 @@ document.getElementById("btnIniciar").onclick = () => {
   if (gameOver || intervalo) return;
   iniciarJuego();
 };
+document.getElementById("btnReiniciar").onclick = () => {
+  if (pausado || gameOver) reiniciarJuego();
+}
 document.getElementById("pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
