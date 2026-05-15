@@ -6,7 +6,7 @@ function dibujarTodo() {
   if (!intervalo && !pausado && !gameOver) {
     mensajeInicial = !mensajeInicial;
     const nivelActual = localStorage.getItem("nivelSerpiente") || "facil";
-    $("#mensaje").innerText = `Nivel: ${nivelActual.toUpperCase()}`;
+    showText("#mensaje", `Nivel: ${nivelActual.toUpperCase()}`);
     if (mensajeInicial) mostrarMensajeGrande("¡Vamos a Jugar!");
     else dibujarTodo();
   }
@@ -45,7 +45,7 @@ function moverSerpiente() {
   if (nuevaCabeza.x === comida.x && nuevaCabeza.y === comida.y) {
     reproducirCrunchAudio();
     puntaje++;
-    $("#puntaje").innerText = puntaje;
+    showText("#puntaje", puntaje);
     generarComida();
     resetearTiempo();
   } else {
@@ -82,7 +82,7 @@ function cambiarDireccion(nueva) {
 
 function actualizarTemporizador() {
   tiempoRestante--;
-  $("#estado").innerText = `${tiempoRestante}s`;
+  showText("#estado", `${tiempoRestante}s`);
   if (tiempoRestante <= 0) {
     finalizarJuego();
   }
@@ -91,6 +91,6 @@ function actualizarTemporizador() {
 function resetearTiempo() {
   clearInterval(intervaloTiempo);
   tiempoRestante = tiempoMaximo;
-  $("#estado").innerText = `${tiempoRestante}s`;
+  showText("#estado", `${tiempoRestante}s`);
   intervaloTiempo = setInterval(actualizarTemporizador, 1000);
 }
