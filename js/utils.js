@@ -5,3 +5,7 @@ const showText = (selector, text) => {
         element.textContent = text;
     }
 };
+const on = (selector, event, callback) => {
+    const element = $(selector);
+    if (element) element.addEventListener(event, callback);
+};

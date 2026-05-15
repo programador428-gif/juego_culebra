@@ -85,17 +85,13 @@ generarComida();
 dibujarTodo();
 showText("#estado", `${tiempoMaximo}s`);
 
-$("#btnIniciar").onclick = () => {
-  if (!gameOver && !intervalo) iniciarJuego();
-};
-$("#btnReiniciar").onclick = () => {
-  if (pausado || gameOver) reiniciarJuego();
-};
-$("#pausa").onclick = () => pausarJuego();
+on("#btnIniciar", "click", () => { if (!gameOver && !intervalo) iniciarJuego()});
+on("#btnReiniciar", "click", () => { if(pausado || gameOver) reiniciarJuego()});
+on("#pausa", "click", () => pausarJuego());
 
-$("#nivelFacil").onclick = () => ajustarNivel("facil");
-$("#nivelMedio").onclick = () => ajustarNivel("medio");
-$("#nivelDificil").onclick = () => ajustarNivel("dificil");
+on("#nivelFacil", "click", () => ajustarNivel("facil"));
+on("#nivelMedio", "click", () => ajustarNivel("medio"));
+on("#nivelDificil", "click", () => ajustarNivel("dificil"));
 
 window.addEventListener("keydown", (e) => {
   if (!intervalo) return;
