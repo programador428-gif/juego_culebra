@@ -212,8 +212,11 @@ function pausarJuego() {
   pausado = !pausado;
   document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
 
-  if (pausado) mostrarMensajeGrande("| |");
-  else {
+  if (pausado) { 
+    fondoSound.pause();
+    mostrarMensajeGrande("| |");
+  } else {
+    reproducirFondoAudio();
     dibujarTodo();
   }
 }
