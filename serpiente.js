@@ -15,6 +15,7 @@ const gameOverSound = new Audio("./assets/audio/game-over.mp3");
 const fondoSound = new Audio("./assets/audio/fondo.mp3");
 
 let direccionActual = "derecha";
+let proximaDireccion = "derecha";
 let pausado = false;
 let mensajeInicial = true;
 let gameOver = false;
@@ -104,6 +105,8 @@ function pintarSerpiente() {
 }
 
 function moverSerpiente() {
+  direccionActual = proximaDireccion;
+
   let cabezaActual = SERPIENTE[SERPIENTE.length - 1];
   let nuevaCabeza = { x: cabezaActual.x, y: cabezaActual.y };
 
@@ -147,7 +150,7 @@ function cambiarDireccion(nueva) {
   if (direccionActual === "arriba" && nueva === "abajo") return;
   if (direccionActual === "abajo" && nueva === "arriba") return;
 
-  direccionActual = nueva;
+  proximaDireccion = nueva;
 }
 
 // --- LÓGICA DE LA COMIDA ---
@@ -238,6 +241,7 @@ function reiniciarJuego() {
 }
 
 function finalizarJuego() {
+  gameOverSound.currentTime = 0;
   gameOverSound.volume = 1;
   gameOverSound.play();
   fondoSound.pause();
