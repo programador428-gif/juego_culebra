@@ -157,6 +157,10 @@ function generarComida() {
 
   comida.x = Math.floor(Math.random() * COLUMNAS);
   comida.y = Math.floor(Math.random() * FILAS);
+
+  if (SERPIENTE.some((parte) => parte.x === comida.x && parte.y === comida.y)) {
+    generarComida();
+  }
 }
 
 function pintarComida() {
