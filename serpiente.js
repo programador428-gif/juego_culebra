@@ -12,6 +12,7 @@ const SERPIENTE = [
 
 // Sonidos
 const gameOverSound = new Audio("./assets/audio/game-over.mp3");
+const fondoSound = new Audio("./assets/audio/fondo.mp3");
 
 let direccionActual = "derecha";
 let pausado = false;
@@ -173,6 +174,13 @@ function verificarAutoColision(nuevaCabeza, cuerpoActual) {
   return cuerpoActual.some((parte) => parte.x === nuevaCabeza.x && parte.y === nuevaCabeza.y);
 }
 
+// --- Sonidos ---
+function reproducirFondoAudio() {
+  fondoSound.loop = true;
+  fondoSound.volume = 0.5;
+  fondoSound.play();
+}
+
 // --- CONTROL DEL JUEGO ---
 function cicloJuego() {
   if (!pausado) {
@@ -216,6 +224,7 @@ function reiniciarJuego() {
   SERPIENTE.push({ x: CENTRO_X, y: CENTRO_Y });
 
   generarComida();
+  reproducirFondoAudio();
 
   document.getElementById("puntaje").innerText = puntaje;
   document.getElementById("estado").innerText = "Listo";
@@ -227,6 +236,7 @@ function reiniciarJuego() {
 function finalizarJuego() {
   gameOverSound.volume = 1;
   gameOverSound.play();
+  fondoSound.pause();
   clearInterval(intervalo);
   gameOver = true;
   intervalo = null;
@@ -239,6 +249,7 @@ function finalizarJuego() {
 // --- EVENTOS E INTERACCIÓN ---
 generarComida();
 dibujarTodo();
+reproducirFondoAudio();
 
 document.getElementById("btnIniciar").onclick = () => iniciarJuego();
 document.getElementById("pausa").onclick = () => pausarJuego();
