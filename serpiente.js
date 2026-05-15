@@ -200,6 +200,7 @@ function cicloJuego() {
 
 function iniciarJuego() {
   if (!intervalo) {
+    proximaDireccion = "derecha";
     intervalo = setInterval(cicloJuego, velocidad);
   }
   pausado = false;
@@ -227,6 +228,7 @@ function reiniciarJuego() {
 
   puntaje = 0;
   direccionActual = "derecha";
+  proximaDireccion = "derecha";
   pausado = false;
   gameOver = false;
 
@@ -262,7 +264,10 @@ generarComida();
 dibujarTodo();
 reproducirFondoAudio();
 
-document.getElementById("btnIniciar").onclick = () => iniciarJuego();
+document.getElementById("btnIniciar").onclick = () => {
+  if (gameOver || intervalo) return;
+  iniciarJuego();
+};
 document.getElementById("pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
