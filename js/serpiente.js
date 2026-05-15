@@ -68,6 +68,7 @@ function finalizarJuego() {
   intervalo = null;
   $("#estado").innerText = "GameOver";
   dibujarTodo();
+  pintarSerpiente("#ff2a6d", "rgba(255, 42, 109, 0.6)");
   mostrarMensajeGrande("GAME OVER");
 }
 

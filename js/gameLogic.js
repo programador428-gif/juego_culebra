@@ -12,10 +12,10 @@ function dibujarTodo() {
   }
 }
 
-function pintarSerpiente() {
+function pintarSerpiente(colorCabeza = "#00ff88", colorCuerpo = "rgba(0, 255, 136, 0.6)") {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((parte, index) => {
-    let color = index === distancia ? "#00ff88" : "rgba(0, 255, 136, 0.6)";
+    let color = index === distancia ? colorCabeza : colorCuerpo;
     pintarParte(parte.x, parte.y, color);
   });
 }

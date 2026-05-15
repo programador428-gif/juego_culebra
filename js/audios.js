@@ -1,6 +1,6 @@
-const gameOverSound = new Audio("../assets/audio/game-over.mp3");
-const fondoSound = new Audio("../assets/audio/fondo.mp3");
-const crunchSound = new Audio("../assets/audio/crunching.mp3");
+const gameOverSound = new Audio("./assets/audio/game-over.mp3");
+const fondoSound = new Audio("./assets/audio/fondo.mp3");
+const crunchSound = new Audio("./assets/audio/crunching.mp3");
 
 const sonidos = {
     gameOver: gameOverSound,
