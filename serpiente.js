@@ -10,6 +10,9 @@ const SERPIENTE = [
   { x: CENTRO_X, y: CENTRO_Y },
 ];
 
+// Sonidos
+const gameOverSound = new Audio("./assets/audio/game-over.mp3");
+
 let direccionActual = "derecha";
 let pausado = false;
 let mensajeInicial = true;
@@ -222,8 +225,10 @@ function reiniciarJuego() {
 }
 
 function finalizarJuego() {
-  gameOver = true;
+  gameOverSound.volume = 1;
+  gameOverSound.play();
   clearInterval(intervalo);
+  gameOver = true;
   intervalo = null;
 
   document.getElementById("estado").innerText = "Game Over";
