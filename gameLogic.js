@@ -16,7 +16,7 @@ function dibujarTodo() {
 function pintarSerpiente() {
   let distancia = SERPIENTE.length - 1;
   SERPIENTE.forEach((parte, index) => {
-    let color = index === distancia ? "yellow" : "green";
+    let color = index === distancia ? "#00ff88" : "rgba(0, 255, 136, 0.6)";
     pintarParte(parte.x, parte.y, color);
   });
 }
@@ -70,9 +70,8 @@ function generarComida() {
 }
 
 function pintarComida() {
-  pintarParte(comida.x, comida.y, "red");
+  pintarParte(comida.x, comida.y, "#ff2a6d");
 }
-
 function cambiarDireccion(nueva) {
   if (!intervalo) return;
   if (direccionActual === "derecha" && nueva === "izquierda") return;
