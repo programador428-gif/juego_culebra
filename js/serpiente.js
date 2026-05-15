@@ -53,9 +53,9 @@ function reiniciarJuego() {
   SERPIENTE.push({ x: CENTRO_X, y: CENTRO_Y });
   generarComida();
   fondoSound.currentTime = 0;
-  $("#puntaje").innerText = puntaje;
-  $("#estado").innerText = "Listo";
-  $("#mensaje").innerText = "¡Presiona iniciar para comenzar!";
+  showText("#puntaje", puntaje);
+  showText("#estado", "Listo");
+  showText("#mensaje", "¡Presiona iniciar para comenzar!h");
   dibujarTodo();
 }
 
@@ -66,7 +66,7 @@ function finalizarJuego() {
   clearInterval(intervalo);
   gameOver = true;
   intervalo = null;
-  $("#estado").innerText = "GameOver";
+  showText("#estado", "Game Over");
   dibujarTodo();
   pintarSerpiente("#ff2a6d", "rgba(255, 42, 109, 0.6)");
   mostrarMensajeGrande("GAME OVER");
@@ -78,12 +78,12 @@ function ajustarNivel(nivel) {
   velocidad = NIVELES[nivel].velocidad;
   tiempoMaximo = NIVELES[nivel].tiempo;
   tiempoRestante = tiempoMaximo;
-  $("#mensaje").innerText = `Nivel: ${nivel.toUpperCase()}`;
+  showText("#mensaje", `Nivel: ${nivel.toUpperCase()}`);
 }
 
 generarComida();
 dibujarTodo();
-$("#estado").innerText = `${tiempoMaximo}s`;
+showText("#estado", `${tiempoMaximo}s`);
 
 $("#btnIniciar").onclick = () => {
   if (!gameOver && !intervalo) iniciarJuego();
