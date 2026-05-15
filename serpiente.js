@@ -1,5 +1,5 @@
 // --- CONFIGURACIÓN Y VARIABLES GLOBALES ---
-const canvas = document.getElementById("canvasJuego");
+const canvas = $("#canvasJuego");
 const ctx = canvas.getContext("2d");
 const TAMANIO_CELDA = 30;
 
@@ -9,11 +9,6 @@ const CENTRO_Y = Math.floor(canvas.height / 2 / TAMANIO_CELDA);
 const SERPIENTE = [
   { x: CENTRO_X, y: CENTRO_Y },
 ];
-
-// Sonidos
-const gameOverSound = new Audio("./assets/audio/game-over.mp3");
-const fondoSound = new Audio("./assets/audio/fondo.mp3");
-const crunchSound = new Audio("./assets/audio/crunching.mp3");
 
 let direccionActual = "derecha";
 let proximaDireccion = "derecha";
@@ -80,7 +75,7 @@ function mostrarMensajeInicial() {
   if (gameOver) return;
 
   mensajeInicial = !mensajeInicial;
-  document.getElementById("estado").innerText = "Listo";
+  $("#estado").innerText = "Listo";
 
   if (mensajeInicial) mostrarMensajeGrande("¡Vamos a Jugar!");
   else {
@@ -134,7 +129,7 @@ function moverSerpiente() {
   if (atrapaComida()) {
     reproducirCrunchAudio();
     puntaje++;
-    document.getElementById("puntaje").innerText = puntaje;
+    $("#puntaje").innerText = puntaje;
     generarComida();
   } else {
     SERPIENTE.shift();
@@ -212,7 +207,7 @@ function iniciarJuego() {
     intervalo = setInterval(cicloJuego, velocidad);
   }
   pausado = false;
-  document.getElementById("estado").innerText = "Jugando";
+  $("#estado").innerText = "Jugando";
   reproducirFondoAudio();
 }
 
@@ -220,7 +215,7 @@ function pausarJuego() {
   if (!intervalo) return;
 
   pausado = !pausado;
-  document.getElementById("estado").innerText = pausado ? "Pausa" : "Jugando";
+  $("#estado").innerText = pausado ? "Pausa" : "Jugando";
 
   if (pausado) { 
     fondoSound.pause();
@@ -250,9 +245,9 @@ function reiniciarJuego() {
   crunchSound.currentTime = 0;
   gameOverSound.currentTime = 0;
 
-  document.getElementById("puntaje").innerText = puntaje;
-  document.getElementById("estado").innerText = "Listo";
-  document.getElementById("mensaje").innerText = "¡Presiona iniciar para comenzar!";
+  $("#puntaje").innerText = puntaje;
+  $("#estado").innerText = "Listo";
+  $("#mensaje").innerText = "¡Presiona iniciar para comenzar!";
 
   dibujarTodo();
 }
@@ -266,7 +261,7 @@ function finalizarJuego() {
   gameOver = true;
   intervalo = null;
 
-  document.getElementById("estado").innerText = "Game Over";
+  $("#estado").innerText = "Game Over";
   dibujarTodo();
   mostrarMensajeGrande("GAME OVER");
 }
@@ -275,14 +270,14 @@ function finalizarJuego() {
 generarComida();
 dibujarTodo();
 
-document.getElementById("btnIniciar").onclick = () => {
+$("#btnIniciar").onclick = () => {
   if (gameOver || intervalo) return;
   iniciarJuego();
 };
-document.getElementById("btnReiniciar").onclick = () => {
+$("#btnReiniciar").onclick = () => {
   if (pausado || gameOver) reiniciarJuego();
 }
-document.getElementById("pausa").onclick = () => pausarJuego();
+$("#pausa").onclick = () => pausarJuego();
 
 window.addEventListener("keydown", (event) => {
   if (!intervalo) return;
