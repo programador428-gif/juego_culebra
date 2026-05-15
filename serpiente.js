@@ -20,20 +20,21 @@ function iniciarJuego() {
   if (!intervalo) {
     proximaDireccion = "derecha";
     intervalo = setInterval(cicloJuego, velocidad);
+    resetearTiempo();
   }
   pausado = false;
-  $("#estado").innerText = "Jugando";
   reproducirFondoAudio();
 }
 
 function pausarJuego() {
   if (!intervalo) return;
   pausado = !pausado;
-  $("#estado").innerText = pausado ? "Pausa" : "Jugando";
-  if (pausado) { 
+  if (pausado) {
+    clearInterval(intervaloTiempo);
     fondoSound.pause();
     mostrarMensajeGrande("| |");
   } else {
+    intervaloTiempo = setInterval(actualizarTemporizador, 1000);
     reproducirFondoAudio();
     dibujarTodo();
   }
@@ -41,6 +42,7 @@ function pausarJuego() {
 
 function reiniciarJuego() {
   clearInterval(intervalo);
+  clearInterval(intervaloTiempo);
   intervalo = null;
   puntaje = 0;
   direccionActual = "derecha";
@@ -53,32 +55,59 @@ function reiniciarJuego() {
   fondoSound.currentTime = 0;
   $("#puntaje").innerText = puntaje;
   $("#estado").innerText = "Listo";
+  $("#mensaje").innerText = "¡Presiona iniciar para comenzar!";
   dibujarTodo();
 }
 
 function finalizarJuego() {
+  clearInterval(intervaloTiempo);
   gameOverSound.play();
   fondoSound.pause();
   clearInterval(intervalo);
   gameOver = true;
   intervalo = null;
-  $("#estado").innerText = "Game Over";
+  $("#estado").innerText = "GameOver";
   dibujarTodo();
   mostrarMensajeGrande("GAME OVER");
 }
 
+function ajustarNivel(nivel) {
+  if (intervalo) return;
+  localStorage.setItem("nivelSerpiente", nivel);
+  velocidad = NIVELES[nivel].velocidad;
+  tiempoMaximo = NIVELES[nivel].tiempo;
+  tiempoRestante = tiempoMaximo;
+  $("#mensaje").innerText = `Nivel: ${nivel.toUpperCase()}`;
+}
+
 generarComida();
 dibujarTodo();
+$("#estado").innerText = `${tiempoMaximo}s`;
 
-$("#btnIniciar").onclick = () => { if (!gameOver && !intervalo) iniciarJuego(); };
-$("#btnReiniciar").onclick = () => { if (pausado || gameOver) reiniciarJuego(); };
+$("#btnIniciar").onclick = () => {
+  if (!gameOver && !intervalo) iniciarJuego();
+};
+$("#btnReiniciar").onclick = () => {
+  if (pausado || gameOver) reiniciarJuego();
+};
 $("#pausa").onclick = () => pausarJuego();
+
+$("#nivelFacil").onclick = () => ajustarNivel("facil");
+$("#nivelMedio").onclick = () => ajustarNivel("medio");
+$("#nivelDificil").onclick = () => ajustarNivel("dificil");
 
 window.addEventListener("keydown", (e) => {
   if (!intervalo) return;
-  if (e.key === "ArrowUp" || e.key.toLowerCase() === "w") cambiarDireccion("arriba");
-  if (e.key === "ArrowDown" || e.key.toLowerCase() === "s") cambiarDireccion("abajo");
-  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a") cambiarDireccion("izquierda");
-  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d") cambiarDireccion("derecha");
-  if (e.code === "Space") { e.preventDefault(); pausarJuego(); }
+  if (e.key === "ArrowUp" || e.key.toLowerCase() === "w")
+    cambiarDireccion("arriba");
+  if (e.key === "ArrowDown" || e.key.toLowerCase() === "s")
+    cambiarDireccion("abajo");
+  if (e.key === "ArrowLeft" || e.key.toLowerCase() === "a")
+    cambiarDireccion("izquierda");
+  if (e.key === "ArrowRight" || e.key.toLowerCase() === "d")
+    cambiarDireccion("derecha");
+  if (e.code === "Space") {
+    e.preventDefault();
+    pausarJuego();
+  }
 });

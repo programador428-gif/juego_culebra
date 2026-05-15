@@ -15,7 +15,18 @@ let gameOver = false;
 let intervalo;
 let comida = { x: 5, y: 5 };
 let puntaje = 0;
-let velocidad = 150;
+
+const NIVELES = {
+  facil: { velocidad: 200, tiempo: 15 },
+  medio: { velocidad: 120, tiempo: 10 },
+  dificil: { velocidad: 70, tiempo: 7 },
+};
+
+let nivelGuardado = localStorage.getItem("nivelSerpiente") || "facil";
+let velocidad = NIVELES[nivelGuardado].velocidad;
+let tiempoMaximo = NIVELES[nivelGuardado].tiempo;
+let tiempoRestante = tiempoMaximo;
+let intervaloTiempo;
 
 function limpiarCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);

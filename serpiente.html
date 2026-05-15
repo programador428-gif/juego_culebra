@@ -1,74 +1,80 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego de la Serpiente - Taller</title>
+    <style>
+      #loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #222;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        z-index: 9999;
+      }
+      .contenedor-juego {
+        display: none;
+      }
+    </style>
+    <link rel="stylesheet" href="serpiente.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Juego de la Serpiente - Taller</title>
-  <style>
-    #loader {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: #222; color: white;
-      display: flex; justify-content: center; align-items: center;
-      font-size: 24px; z-index: 9999;
-    }
-    .contenedor-juego {
-      display: none;
-    }
-  </style>
-  <link rel="stylesheet" href="serpiente.css">
-</head>
+  <body>
+    <div id="loader">Cargando audios... 0%</div>
 
-<body>
-  <div id="loader">Cargando audios... 0%</div>
-  
-  <main class="contenedor-juego">
-    <h1>🐍 Juego de la Serpiente 🐍</h1>
-    <p class="descripcion">
-      ¡Bienvenido al clásico juego de la culebrita!
-    </p>
+    <main class="contenedor-juego">
+      <h1>🐍 Juego de la Serpiente 🐍</h1>
+      <p class="descripcion">¡Bienvenido al clásico juego de la culebrita!</p>
 
-    <section class="panel-info">
-      <div class="tarjeta-info">
-        <span>Puntaje</span>
-        <strong id="puntaje">0</strong>
-      </div>
-      <div class="tarjeta-info">
-        <span>Estado</span>
-        <strong id="estado">Listo</strong>
-      </div>
-    </section>
+      <section class="panel-info">
+        <div class="tarjeta-info">
+          <span>Puntaje</span>
+          <strong id="puntaje">0</strong>
+        </div>
+        <div class="tarjeta-info">
+          <span>Tiempo</span> <strong id="estado">0s</strong>
+        </div>
+      </section>
 
-    <canvas id="canvasJuego" width="600" height="600"></canvas>
+      <canvas id="canvasJuego" width="600" height="600"></canvas>
 
-    <section class="controles">
-      <button id="arriba" onclick="cambiarDireccion('arriba')">⬆️</button>
-      <button id="izquierda" onclick="cambiarDireccion('izquierda')">⬅️</button>
-      <button id="pausa" onclick="pausarJuego()">⏸️</button>
-      <button id="derecha" onclick="cambiarDireccion('derecha')">➡️</button>
-      <button id="abajo" onclick="cambiarDireccion('abajo')">⬇️</button>
-    </section>
+      <section class="controles">
+        <button id="arriba" onclick="cambiarDireccion('arriba')">⬆️</button>
+        <button id="izquierda" onclick="cambiarDireccion('izquierda')">
+          ⬅️
+        </button>
+        <button id="pausa" onclick="pausarJuego()">⏸️</button>
+        <button id="derecha" onclick="cambiarDireccion('derecha')">➡️</button>
+        <button id="abajo" onclick="cambiarDireccion('abajo')">⬇️</button>
+      </section>
 
-    <section class="acciones">
-      <button id="btnIniciar">Iniciar</button>
-      <button id="btnReiniciar">Reiniciar</button>
-    </section>
+      <section class="acciones">
+        <button id="btnIniciar">Iniciar</button>
+        <button id="btnReiniciar">Reiniciar</button>
+      </section>
 
-    <section class="grupo-niveles">
-      <button id="nivelFacil">Nivel Fácil</button>
-      <button id="nivelMedio">Nivel Medio</button>
-      <button id="nivelDificil">Nivel Dificil</button>
-    </section>
+      <section class="grupo-niveles">
+        <button id="nivelFacil">Nivel Fácil</button>
+        <button id="nivelMedio">Nivel Medio</button>
+        <button id="nivelDificil">Nivel Dificil</button>
+      </section>
 
-    <p id="mensaje" class="mensaje animacion-suave">¡Presiona iniciar para comenzar!</p>
-  </main>
-  
-  <script src="utils.js"></script>
-<script src="audios.js"></script>
-<script src="config.js"></script>
-<script src="gameLogic.js"></script>
-<script src="serpiente.js"></script>
-</body>
+      <p id="mensaje" class="mensaje animacion-suave">
+        ¡Presiona iniciar para comenzar!
+      </p>
+    </main>
 
+    <script src="utils.js"></script>
+    <script src="audios.js"></script>
+    <script src="config.js"></script>
+    <script src="gameLogic.js"></script>
+    <script src="serpiente.js"></script>
+  </body>
 </html>
