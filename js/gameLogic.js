@@ -5,7 +5,6 @@ function dibujarTodo() {
   pintarComida();
   if (!intervalo && !pausado && !gameOver) {
     mensajeInicial = !mensajeInicial;
-    // Mostrar nivel actual en el mensaje inferior al inicio
     const nivelActual = localStorage.getItem("nivelSerpiente") || "facil";
     $("#mensaje").innerText = `Nivel: ${nivelActual.toUpperCase()}`;
     if (mensajeInicial) mostrarMensajeGrande("¡Vamos a Jugar!");
